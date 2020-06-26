@@ -5,6 +5,7 @@ import mail from './mail.svg';
 import './App.css';
 
 
+
 const App = () => {
   return (
     <div className="App">
@@ -25,7 +26,8 @@ const App = () => {
           }
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, {setSubmitting}) => {
+          console.log("ASDASD")
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -34,40 +36,28 @@ const App = () => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <p>
               <label>Mail To: </label>
               <Field type="mailTo" name="mailTo" />
               <ErrorMessage name="mailTo" component="div" />
-            </p>
-            <p>
               <label>cc: </label>
               <Field type="cc" name="cc" />
               <ErrorMessage name="cc" component="div" />
-            </p>
-            <p>
               <label>bcc: </label>
               <Field type="bcc" name="bcc" />
               <ErrorMessage name="bcc" component="div" />
-            </p>
-            <p>
               <label>subject: </label>
               <Field type="subject" name="subject" as="textarea" />
               <ErrorMessage name="subject" component="div" />
-            </p>
-            <p>
               <label>body: </label>
               <Field type="body" name="body" as="textarea" />
               <ErrorMessage name="body" component="div" />
-            </p>
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
+            <button type="submit" disabled={isSubmitting}>Submit</button>
           </Form>
         )}
       </Formik>
       </section>
       <footer>
-        <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+        {/* <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}
     </footer>
     </div>
   );
