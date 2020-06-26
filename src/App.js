@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+import mail from './mail.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <img src={mail} className="App-logo" alt="logo" />
       </header>
+      <section>
+        <p>Mail to</p>
+        <p>CC</p>
+        <p>BCC</p>
+        <p>Subject</p>
+        <p>Body</p>
+      </section>
+      <footer>
+        <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    </footer>
     </div>
   );
 }
