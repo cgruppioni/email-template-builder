@@ -24,7 +24,7 @@ export const TemplateForm = () => {
         .required('Required')
     }),
     onSubmit: values => {
-      setFormResponse('asdasd')
+      setFormResponse('You successfully submit the form!')
       // alert(JSON.stringify(values, null, 2))
     },
   })
