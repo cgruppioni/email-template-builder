@@ -12,7 +12,7 @@ export const TemplateForm = () => {
       body: '',
     },
     validationSchema: Yup.object({
-      mailto: Yup.string()
+      mailTo: Yup.string()
         .required('Required'),
       subject: Yup.string()
         .required('Required'),
@@ -20,7 +20,6 @@ export const TemplateForm = () => {
         .required('Required')
     }),
     onSubmit: values => {
-      console.log("2323")
       alert(JSON.stringify(values, null, 2))
     },
   })
