@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
-
-
 export const TemplateForm = () => {
   const [formResponse, setFormResponse] = useState('')
 
@@ -97,16 +95,5 @@ export const TemplateForm = () => {
       </form>
       <p>{formResponse}</p>
     </>
-  )
-}
-
-export const TemplateResponse = () => {
-
-}
-
-export const Template = () => {
-  return (
-    <TemplateForm />
-
   )
 }
