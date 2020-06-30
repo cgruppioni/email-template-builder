@@ -25,22 +25,34 @@ export const TemplateForm = () => {
                 }}
             >
                 <Form>
-                    <label htmlFor="mailTo">Mail To</label>
-                    <Field name="mailTo" type="text" />
-                    <ErrorMessage name="mailTo" />
-                    <label htmlFor="cc">Last Name</label>
-                    <Field name="cc" type="text" />
-                    <ErrorMessage name="cc" />
-                    <label htmlFor="bcc">Email Address</label>
-                    <Field name="bcc" type="bcc" />
-                    <ErrorMessage name="bcc" />
-                    <label htmlFor="subject">Subject</label>
-                    <Field name="subject" type="text" />
-                    <ErrorMessage name="subject" />
-                    <label htmlFor="body">Body</label>
-                    <Field name="body" type="text" />
-                    <ErrorMessage name="body" />
-                    <button type="submit">Submit</button>
+                    <p>
+                      <label htmlFor="mailTo">Mail To</label>
+                      <Field name="mailTo" type="text" />
+                      <ErrorMessage name="mailTo" />
+                    </p>
+                    <p>
+                      <label htmlFor="cc">cc</label>
+                      <Field name="cc" type="text" />
+                      <ErrorMessage name="cc" />
+                    </p>
+                    <p>
+                      <label htmlFor="bcc">bcc</label>
+                      <Field name="bcc" type="bcc" />
+                      <ErrorMessage name="bcc" />
+                    </p>
+                    <p>
+                      <label htmlFor="subject">Subject</label>
+                      <Field name="subject" type="text" />
+                      <ErrorMessage name="subject" />
+                    </p>
+                    <p>
+                      <label htmlFor="body">Body</label>
+                      <Field name="body" type="text" as="textarea" />
+                      <ErrorMessage name="body" />
+                    </p>
+                    <p>
+                      <button type="submit">Submit</button>
+                    </p>
                 </Form>
             </Formik>
             <p>{formResponse}</p>
