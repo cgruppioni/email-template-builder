@@ -1,8 +1,8 @@
 import React from 'react'
 
 import './App.css'
-import { TemplateForm } from './TemplateForm/index'
 import mail from './mail.svg'
+import { TemplateForm } from './TemplateForm/index'
 
 const App = () => {
   return (

@@ -1,9 +1,9 @@
+import * as Yup from 'yup'
+import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
 import { Formik } from 'formik'
-import * as Yup from 'yup'
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
 
 const schema = Yup.object({
     mailTo: Yup.string().required(),
