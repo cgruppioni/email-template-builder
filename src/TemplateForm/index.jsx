@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 
-import styles from './styles.css'
+import styles from './styles.module.css'
 
 const schema = Yup.object({
     mailTo: Yup.string().required(),
@@ -18,6 +18,7 @@ export const TemplateForm = () => {
 
     return (
         <>
+          <h4 className={styles.description}>Fill out this form and you will recieve a tiny.url to share an email template.</h4>
           <Formik
               validationSchema={schema}
               onSubmit={(values) => {setFormResponse("Success!")}}
@@ -38,9 +39,9 @@ export const TemplateForm = () => {
                   isValid,
                   errors,
               }) => (
-                  <Form noValidate onSubmit={handleSubmit}>
-                    <Form.Group as={Col} md="4" controlId="validationFormik01">
-                        <Form.Label>Mail to</Form.Label>
+                  <Form noValidate onSubmit={handleSubmit} className={styles.form}>
+                    <Form.Group as={Col} md="7" controlId="validationFormikMailTo" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>Mail to</Form.Label>
                         <Form.Control
                             type="text"
                             name="mailTo"
@@ -52,8 +53,8 @@ export const TemplateForm = () => {
                           {errors.mailTo}
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="validationFormik02">
-                        <Form.Label>cc</Form.Label>
+                    <Form.Group as={Col} md="7" controlId="validationFormikCC" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>cc</Form.Label>
                         <Form.Control
                             type="text"
                             name="cc"
@@ -61,21 +62,18 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="validationFormikUsername">
-                        <Form.Label>bcc</Form.Label>
-                        <Form.Group as={Col} md="6" controlId="validationFormik03">
-                            <Form.Label>bcc</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder=""
-                                name="bcc"
-                                value={values.bcc}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
+                    <Form.Group as={Col} md="7" controlId="validationFormikBCC" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>bcc</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder=""
+                            name="bcc"
+                            value={values.bcc}
+                            onChange={handleChange}
+                        />
                     </Form.Group>
-                    <Form.Group as={Col} md="6" controlId="validationFormik03">
-                        <Form.Label>subject</Form.Label>
+                    <Form.Group as={Col} md="7" controlId="validationFormikSubject" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>subject</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder=""
@@ -88,8 +86,8 @@ export const TemplateForm = () => {
                             {errors.subject}
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group as={Col} md="3" controlId="validationFormik04">
-                        <Form.Label>body</Form.Label>
+                    <Form.Group as={Col} md="7" controlId="validationFormikBody" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>body</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder=""
@@ -102,11 +100,11 @@ export const TemplateForm = () => {
                             {errors.body}
                         </Form.Control.Feedback>
                     </Form.Group>
-                      <Button type="submit">Submit form</Button>
+                    <Button type="submit" size="lg" className={styles.button}>Submit form</Button>
                   </Form>
               )}
           </Formik>
-          <p>{formResponse}</p>
+          <div className={styles.formResponse}>{formResponse}</div>
       </>
     )
 }
