@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 
+import styles from './styles.css'
+
 const schema = Yup.object({
     mailTo: Yup.string().required(),
     subject: Yup.string().required(),
