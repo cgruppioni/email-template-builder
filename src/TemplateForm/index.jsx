@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { Formik } from 'formik'
 
 import styles from './styles.module.css'
+import { LinkCreator } from '../LinkCreator'
 
 const schema = Yup.object({
     mailTo: Yup.string().required(),
@@ -21,7 +22,11 @@ export const TemplateForm = () => {
           <h4 className={styles.description}>Fill out this form and you will recieve a tiny.url to share an email template.</h4>
           <Formik
               validationSchema={schema}
-              onSubmit={(values) => {setFormResponse("Success!")}}
+              onSubmit={(values) => {
+                const createdLink = LinkCreator(values)
+                console.log(createdLink)
+                setFormResponse(createdLink)
+              }}
               initialValues={{
                   mailTo: '',
                   cc: '',
