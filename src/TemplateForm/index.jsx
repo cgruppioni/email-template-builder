@@ -1,4 +1,3 @@
-import * as Yup from 'yup'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
@@ -8,28 +7,25 @@ import { Formik } from 'formik'
 
 import styles from './styles.module.css'
 
-const schema = Yup.object({
-    mailTo: Yup.string().required(),
-    subject: Yup.string().required(),
-    body: Yup.string().required(),
-})
-
 export const TemplateForm = () => {
-    const [formResponse, setFormResponse] = useState('')
+    const [tinyUrlResponse, setTinyUrlResponse] = useState('')
 
     return (
         <>
-          <h4 className={styles.description}>Fill out this form and you will recieve a tiny.url to share an email template.</h4>
+          <h5 className={styles.description}>Create a link that will autofill an email with information.</h5>
+          <div className={styles.tinyUrlResponse}>{tinyUrlResponse}</div>
           <Formik
-              validationSchema={schema}
               onSubmit={(values) => {
-                const link = `mailTo:${values.mailTo}?cc=${values.cc}&bcc=${values.bcc}&subject=${values.subject}&body=${values.body}`
+                const body = encodeURIComponent(values.body)
+                const subject = encodeURIComponent(values.subject)
+
+                const link = `mailTo:${values.mailTo}?cc=${values.cc}&bcc=${values.bcc}&subject=${subject}&body=${body}`
                 const data = { 'url': link, 'alias': values.alias }
 
                 TinyURL.shortenWithAlias(data).then(function(res) {
-                  setFormResponse(<a href={`${res}`} target="_blank">{res}</a>)
+                  setTinyUrlResponse(<a href={`${res}`} rel="noopener noreferrer" target="_blank">{res}</a>)
                 }, function(err) {
-                  setFormResponse('Please try a different alias.')
+                  setTinyUrlResponse('Please try a different alias.')
                 })
 
               }}
@@ -45,28 +41,20 @@ export const TemplateForm = () => {
               {({
                   handleSubmit,
                   handleChange,
-                  handleBlur,
                   values,
-                  touched,
-                  isValid,
-                  errors,
               }) => (
                   <Form noValidate onSubmit={handleSubmit} className={styles.form}>
-                    <Form.Group as={Col} md="7" controlId="validationFormikMailTo" className={styles.formGroup}>
+                    <Form.Group as={Col} md="8" controlId="validationFormikMailTo" className={styles.formGroup}>
                         <Form.Label className={styles.label}>Mail to</Form.Label>
                         <Form.Control
                             type="text"
                             name="mailTo"
                             value={values.mailTo}
                             onChange={handleChange}
-                            isInvalid={!!errors.mailTo}
                         />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.mailTo}
-                        </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikCC" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>cc</Form.Label>
+                    <Form.Group as={Col} md="8" controlId="validationFormikCC" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>CC</Form.Label>
                         <Form.Control
                             type="text"
                             name="cc"
@@ -74,8 +62,8 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikBCC" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>bcc</Form.Label>
+                    <Form.Group as={Col} md="8" controlId="validationFormikBCC" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>BCC</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder=""
@@ -84,53 +72,44 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikSubject" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>subject</Form.Label>
+                    <Form.Group as={Col} md="8" controlId="validationFormikSubject" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>Subject</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder=""
                             name="subject"
                             value={values.subject}
                             onChange={handleChange}
-                            isInvalid={touched.subject && !!errors.subject}
                         />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.subject}
-                        </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikBody" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>body</Form.Label>
+                    <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>Body</Form.Label>
                         <Form.Control
+                            as="textarea"
                             type="text"
                             placeholder=""
                             name="body"
                             value={values.body}
                             onChange={handleChange}
-                            isInvalid={touched.body && !!errors.body}
                         />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.body}
-                        </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikBody" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>alias</Form.Label>
+                    <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>Custom URL*</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder=""
                             name="alias"
                             value={values.alias}
                             onChange={handleChange}
-                            isInvalid={touched.alias && !!errors.alias}
                         />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.alias}
-                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="8">
+                      <small>The final link will look like: tinyurl.com/custom-url<br></br> If you do not enter a string, TinyUrl will return a random one like: tinyurl.com/asd897asd</small>
                     </Form.Group>
                     <Button type="submit" size="lg" className={styles.button}>Submit form</Button>
                   </Form>
               )}
           </Formik>
-          <div className={styles.formResponse}>{formResponse}</div>
       </>
     )
 }
