@@ -3,10 +3,10 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
+import TinyURL from 'tinyurl'
 import { Formik } from 'formik'
 
 import styles from './styles.module.css'
-import { LinkCreator } from '../LinkCreator'
 
 const schema = Yup.object({
     mailTo: Yup.string().required(),
@@ -23,9 +23,15 @@ export const TemplateForm = () => {
           <Formik
               validationSchema={schema}
               onSubmit={(values) => {
-                const createdLink = LinkCreator(values)
-                console.log(createdLink)
-                setFormResponse(createdLink)
+                const link = `mailTo:${values.mailTo}?cc=${values.cc}&bcc=${values.bcc}&subject=${values.subject}&body=${values.body}`
+                const data = { 'url': link, 'alias': values.alias }
+
+                TinyURL.shortenWithAlias(data).then(function(res) {
+                  setFormResponse(<a href={`${res}`} target="_blank">{res}</a>)
+                }, function(err) {
+                  setFormResponse('Please try a different alias.')
+                })
+
               }}
               initialValues={{
                   mailTo: '',
@@ -33,6 +39,7 @@ export const TemplateForm = () => {
                   bcc: '',
                   subject: '',
                   body: '',
+                  alias: '',
               }}
           >
               {({
@@ -103,6 +110,20 @@ export const TemplateForm = () => {
                         />
                         <Form.Control.Feedback type="invalid">
                             {errors.body}
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="7" controlId="validationFormikBody" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>alias</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder=""
+                            name="alias"
+                            value={values.alias}
+                            onChange={handleChange}
+                            isInvalid={touched.alias && !!errors.alias}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            {errors.alias}
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Button type="submit" size="lg" className={styles.button}>Submit form</Button>
