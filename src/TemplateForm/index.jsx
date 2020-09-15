@@ -1,9 +1,11 @@
 import Button from 'react-bootstrap/Button'
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
 import TinyURL from 'tinyurl'
-import { Formik } from 'formik'
+import { Formik, setNestedObjectValues } from 'formik'
 
 import styles from './styles.module.css'
 
@@ -16,8 +18,11 @@ export const TemplateForm = () => {
           <div className={styles.tinyUrlResponse}>{tinyUrlResponse}</div>
           <Formik
               onSubmit={(values) => {
+
+                console.log(values.body)
                 const body = encodeURIComponent(values.body)
                 const subject = encodeURIComponent(values.subject)
+                console.log(values.body)
 
                 const link = `mailTo:${values.mailTo}?cc=${values.cc}&bcc=${values.bcc}&subject=${subject}&body=${body}`
                 const data = { 'url': link, 'alias': values.alias }
@@ -41,6 +46,7 @@ export const TemplateForm = () => {
               {({
                   handleSubmit,
                   handleChange,
+                  setFieldValue,
                   values,
               }) => (
                   <Form noValidate onSubmit={handleSubmit} className={styles.form}>
@@ -84,14 +90,23 @@ export const TemplateForm = () => {
                     </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
                         <Form.Label className={styles.label}>Body</Form.Label>
-                        <Form.Control
+                        {/* <Form.Control
                             as="textarea"
                             type="text"
                             placeholder=""
                             name="body"
                             value={values.body}
                             onChange={handleChange}
-                        />
+                        /> */}
+                      <CKEditor
+                        editor={ClassicEditor}
+                        data={values.body || ""}
+                        onInit={ editor => {
+                          // You can store the "editor" and use when it is needed.
+                          console.log( 'Editor is ready to use!', editor );
+                        } }
+                        onChange={ ( event, editor ) => setFieldValue('body', editor.getData()) }
+                      />
                     </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
                         <Form.Label className={styles.label}>Custom URL*</Form.Label>
