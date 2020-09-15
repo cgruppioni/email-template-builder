@@ -12,7 +12,8 @@ export const TemplateForm = () => {
 
     return (
         <>
-          <h4 className={styles.description}>Fill out this form and you will recieve a tiny.url to share an email template.</h4>
+          <h5 className={styles.description}>Create a link that will autofill an email with information.</h5>
+          <div className={styles.tinyUrlResponse}>{tinyUrlResponse}</div>
           <Formik
               onSubmit={(values) => {
                 const body = encodeURIComponent(values.body)
@@ -43,7 +44,7 @@ export const TemplateForm = () => {
                   values,
               }) => (
                   <Form noValidate onSubmit={handleSubmit} className={styles.form}>
-                    <Form.Group as={Col} md="7" controlId="validationFormikMailTo" className={styles.formGroup}>
+                    <Form.Group as={Col} md="8" controlId="validationFormikMailTo" className={styles.formGroup}>
                         <Form.Label className={styles.label}>Mail to</Form.Label>
                         <Form.Control
                             type="text"
@@ -52,7 +53,7 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikCC" className={styles.formGroup}>
+                    <Form.Group as={Col} md="8" controlId="validationFormikCC" className={styles.formGroup}>
                         <Form.Label className={styles.label}>CC</Form.Label>
                         <Form.Control
                             type="text"
@@ -61,7 +62,7 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikBCC" className={styles.formGroup}>
+                    <Form.Group as={Col} md="8" controlId="validationFormikBCC" className={styles.formGroup}>
                         <Form.Label className={styles.label}>BCC</Form.Label>
                         <Form.Control
                             type="text"
@@ -71,7 +72,7 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikSubject" className={styles.formGroup}>
+                    <Form.Group as={Col} md="8" controlId="validationFormikSubject" className={styles.formGroup}>
                         <Form.Label className={styles.label}>Subject</Form.Label>
                         <Form.Control
                             type="text"
@@ -81,7 +82,7 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikBody" className={styles.formGroup}>
+                    <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
                         <Form.Label className={styles.label}>Body</Form.Label>
                         <Form.Control
                             as="textarea"
@@ -92,8 +93,8 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="7" controlId="validationFormikBody" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>Alias*</Form.Label>
+                    <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>Custom URL*</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder=""
@@ -102,14 +103,13 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="7">
-                      <small>*If you do not enter an alias, TinyUrl will return a random string</small>
+                    <Form.Group as={Col} md="8">
+                      <small>The final link will look like: tinyurl.com/custom-url<br></br> If you do not enter a string, TinyUrl will return a random one like: tinyurl.com/asd897asd</small>
                     </Form.Group>
                     <Button type="submit" size="lg" className={styles.button}>Submit form</Button>
                   </Form>
               )}
           </Formik>
-          <div className={styles.tinyUrlResponse}>{tinyUrlResponse}</div>
       </>
     )
 }
