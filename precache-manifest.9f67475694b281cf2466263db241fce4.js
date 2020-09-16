@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "edd860d5f5889bddecc7953c326b3072",
+    "revision": "76ce8a0fc97f708d308c635e71d6aa45",
     "url": "/email-template-builder/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/email-template-builder/static/css/2.8aa5a7f8.chunk.css"
   },
   {
-    "revision": "bc1ddd6c4b17e2993ba6",
-    "url": "/email-template-builder/static/css/main.f9792255.chunk.css"
+    "revision": "9cba168717874f3f7f46",
+    "url": "/email-template-builder/static/css/main.5d531b58.chunk.css"
   },
   {
     "revision": "a57ce09b8ad44e206428",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/email-template-builder/static/js/2.cab3d754.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "bc1ddd6c4b17e2993ba6",
-    "url": "/email-template-builder/static/js/main.ddf8aca6.chunk.js"
+    "revision": "9cba168717874f3f7f46",
+    "url": "/email-template-builder/static/js/main.b261c4c9.chunk.js"
   },
   {
     "revision": "eaa459c587c52f1b8b6e",
