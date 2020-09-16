@@ -18,8 +18,10 @@
   margin-top: 20px;
 }
 
-.description {
+.exampleUrl {
   margin-bottom: 40px;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .tinyUrlResponse {
