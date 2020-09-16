@@ -13,7 +13,8 @@ export const TemplateForm = () => {
     return (
         <>
           <h5 className={styles.description}>Create a link that will autofill an email with information.</h5>
-          <div className={styles.tinyUrlResponse}>{tinyUrlResponse}</div>
+          <p className={styles.exampleUrl}>Ex: <a href="https://tinyurl.com/personemailexample" rel="noopener noreferrer" target="_blank">https://tinyurl.com/personemailexample</a></p>
+          <p className={styles.tinyUrlResponse}>{tinyUrlResponse}</p>
           <Formik
               onSubmit={(values) => {
                 const body = encodeURIComponent(values.body)
@@ -44,6 +45,16 @@ export const TemplateForm = () => {
                   values,
               }) => (
                   <Form noValidate onSubmit={handleSubmit} className={styles.form}>
+                      <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
+                        <Form.Label className={styles.label}>Custom URL*</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="personemailexample"
+                            name="alias"
+                            value={values.alias}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikMailTo" className={styles.formGroup}>
                         <Form.Label className={styles.label}>Mail to</Form.Label>
                         <Form.Control
@@ -93,18 +104,9 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>Custom URL*</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder=""
-                            name="alias"
-                            value={values.alias}
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
+
                     <Form.Group as={Col} md="8">
-                      <small>The final link will look like: tinyurl.com/custom-url<br></br> If you do not enter a string, TinyUrl will return a random one like: tinyurl.com/asd897asd</small>
+                      <small>*If you do not enter a custom url, the Tiny.url will have a random string. Ex: https://tinyurl.com/asd897asd</small>
                     </Form.Group>
                     <Button type="submit" size="lg" className={styles.button}>Submit form</Button>
                   </Form>
