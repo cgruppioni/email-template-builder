@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import TinyURL from 'tinyurl'
 import { Formik } from 'formik'
 
-import styles from './styles.module.css'
+import styles from './styles.module.scss'
 
 export const TemplateForm = () => {
     const [tinyUrlResponse, setTinyUrlResponse] = useState('')
@@ -45,18 +45,8 @@ export const TemplateForm = () => {
                   values,
               }) => (
                   <Form noValidate onSubmit={handleSubmit} className={styles.form}>
-                      <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>Custom URL*</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="personemailexample"
-                            name="alias"
-                            value={values.alias}
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikMailTo" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>Mail to</Form.Label>
+                        <Form.Label className={styles.label}>To*</Form.Label>
                         <Form.Control
                             type="text"
                             name="mailTo"
@@ -65,7 +55,7 @@ export const TemplateForm = () => {
                         />
                     </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikCC" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>CC</Form.Label>
+                        <Form.Label className={styles.label}>cc</Form.Label>
                         <Form.Control
                             type="text"
                             name="cc"
@@ -74,7 +64,7 @@ export const TemplateForm = () => {
                         />
                     </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikBCC" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>BCC</Form.Label>
+                        <Form.Label className={styles.label}>bcc</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder=""
@@ -94,7 +84,7 @@ export const TemplateForm = () => {
                         />
                     </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>Body</Form.Label>
+                        <Form.Label className={styles.label}>Message*</Form.Label>
                         <Form.Control
                             as="textarea"
                             type="text"
@@ -104,9 +94,19 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                         />
                     </Form.Group>
+                    <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.customUrl}>
+                        <Form.Label className={styles.label}>Custom Url</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="personemailexample"
+                            name="alias"
+                            value={values.alias}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
 
                     <Form.Group as={Col} md="8">
-                      <small>*If you do not enter a custom url, the Tiny.url will have a random string. Ex: https://tinyurl.com/asd897asd</small>
+                      <small>*required</small>
                     </Form.Group>
                     <Button type="submit" size="lg" className={styles.button}>Submit form</Button>
                   </Form>
