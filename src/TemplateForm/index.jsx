@@ -1,3 +1,4 @@
+import * as Yup from 'yup'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
@@ -6,6 +7,13 @@ import TinyURL from 'tinyurl'
 import { Formik } from 'formik'
 
 import styles from './styles.module.scss'
+
+
+const schema = Yup.object({
+  mailTo: Yup.string().required(),
+  subject: Yup.string().required(),
+  body: Yup.string().required(),
+})
 
 export const TemplateForm = () => {
     const [tinyUrlResponse, setTinyUrlResponse] = useState('')
@@ -16,6 +24,7 @@ export const TemplateForm = () => {
           <p className={styles.exampleUrl}>Ex: <a href="https://tinyurl.com/personemailexample" rel="noopener noreferrer" target="_blank">https://tinyurl.com/personemailexample</a></p>
           <p className={styles.tinyUrlResponse}>{tinyUrlResponse}</p>
           <Formik
+              validationSchema={schema}
               onSubmit={(values) => {
                 const body = encodeURIComponent(values.body)
                 const subject = encodeURIComponent(values.subject)
@@ -42,17 +51,25 @@ export const TemplateForm = () => {
               {({
                   handleSubmit,
                   handleChange,
+                  isValid,
+                  errors,
                   values,
               }) => (
                   <Form noValidate onSubmit={handleSubmit} className={styles.form}>
                     <Form.Group as={Col} md="8" controlId="validationFormikMailTo" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>To*</Form.Label>
+                        <Form.Label className={styles.label}>To</Form.Label>
                         <Form.Control
                             type="text"
                             name="mailTo"
                             value={values.mailTo}
                             onChange={handleChange}
+                            isInvalid={!!errors.mailTo}
                         />
+                        <p>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.mailTo}
+                          </Form.Control.Feedback>
+                        </p>
                     </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikCC" className={styles.formGroup}>
                         <Form.Label className={styles.label}>cc</Form.Label>
@@ -84,7 +101,7 @@ export const TemplateForm = () => {
                         />
                     </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.formGroup}>
-                        <Form.Label className={styles.label}>Message*</Form.Label>
+                        <Form.Label className={styles.label}>Message</Form.Label>
                         <Form.Control
                             as="textarea"
                             type="text"
@@ -106,7 +123,6 @@ export const TemplateForm = () => {
                     </Form.Group>
 
                     <Form.Group as={Col} md="8">
-                      <small>*required</small>
                     </Form.Group>
                     <Button type="submit" size="lg" className={styles.button}>Submit form</Button>
                   </Form>
