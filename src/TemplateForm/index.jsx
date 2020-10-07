@@ -15,7 +15,7 @@ const schema = Yup.object({
 
 export const TemplateForm = () => {
     const [tinyUrlResponse, setTinyUrlResponse] = useState('')
-    const [tinyUrlResponseError, setTinyUrlResponseError] = useState(false)
+    const [tinyUrlResponseError, setTinyUrlResponseError] = useState('')
 
     return (
         <>
@@ -32,7 +32,7 @@ export const TemplateForm = () => {
 
                 TinyURL.shortenWithAlias(data).then(function(res) {
                   if (res === 'Error'){
-                    setTinyUrlResponseError(true)
+                    setTinyUrlResponseError(values.alias)
                   }
                   else {
                     setTinyUrlResponse(<a href={`${res}`} rel="noopener noreferrer" target="_blank">{res}</a>)
@@ -119,12 +119,9 @@ export const TemplateForm = () => {
                         />
                     </Form.Group>
 
-                    {tinyUrlResponseError && <Form.Group as={Col} md="8" className={styles.tinyUrlErrorResponse}>
-                      Url has already been claimed. Please try a different custom url.
+                    {tinyUrlResponseError && <Form.Group as={Col} md="8" className={styles.tinyUrlResponseError}>
+                      <a href={`https://tinyurl.com/${tinyUrlResponseError}`} rel="noopener noreferrer" target="_blank">{`https://tinyurl.com/${tinyUrlResponseError}`}</a> has already been claimed. Please try a different custom url.
                     </Form.Group>}
-
-                    <Form.Group as={Col} md="8">
-                    </Form.Group>
                     <Button type="submit" size="lg" className={styles.button}>Submit form</Button>
                   </Form>
               )}
