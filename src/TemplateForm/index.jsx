@@ -11,17 +11,15 @@ import styles from './styles.module.scss'
 
 const schema = Yup.object({
   mailTo: Yup.string().required(),
-  subject: Yup.string().required(),
-  body: Yup.string().required(),
 })
 
 export const TemplateForm = () => {
     const [tinyUrlResponse, setTinyUrlResponse] = useState('')
+    const [tinyUrlResponseError, setTinyUrlResponseError] = useState(false)
 
     return (
         <>
-          <h5 className={styles.description}>Create a link that will autofill an email with information.</h5>
-          <p className={styles.exampleUrl}>Ex: <a href="https://tinyurl.com/personemailexample" rel="noopener noreferrer" target="_blank">https://tinyurl.com/personemailexample</a></p>
+          <h5 className={styles.description}>Create a shareable email campaign</h5>
           <p className={styles.tinyUrlResponse}>{tinyUrlResponse}</p>
           <Formik
               validationSchema={schema}
@@ -33,9 +31,12 @@ export const TemplateForm = () => {
                 const data = { 'url': link, 'alias': values.alias }
 
                 TinyURL.shortenWithAlias(data).then(function(res) {
-                  setTinyUrlResponse(<a href={`${res}`} rel="noopener noreferrer" target="_blank">{res}</a>)
-                }, function(err) {
-                  setTinyUrlResponse('Please try a different alias.')
+                  if (res === 'Error'){
+                    setTinyUrlResponseError(true)
+                  }
+                  else {
+                    setTinyUrlResponse(<a href={`${res}`} rel="noopener noreferrer" target="_blank">{res}</a>)
+                  }
                 })
 
               }}
@@ -65,11 +66,6 @@ export const TemplateForm = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.mailTo}
                         />
-                        <p>
-                          <Form.Control.Feedback type="invalid">
-                            {errors.mailTo}
-                          </Form.Control.Feedback>
-                        </p>
                     </Form.Group>
                     <Form.Group as={Col} md="8" controlId="validationFormikCC" className={styles.formGroup}>
                         <Form.Label className={styles.label}>cc</Form.Label>
@@ -107,20 +103,25 @@ export const TemplateForm = () => {
                             type="text"
                             placeholder=""
                             name="body"
+                            rows="5"
                             value={values.body}
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="8" controlId="validationFormikBody" className={styles.customUrl}>
+                    <Form.Group as={Col} md="8" controlId="validationFormikCustomUrl" className={styles.customUrl}>
                         <Form.Label className={styles.label}>Custom Url</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="personemailexample"
                             name="alias"
                             value={values.alias}
+                            isInvalid={tinyUrlResponseError}
                             onChange={handleChange}
                         />
                     </Form.Group>
+
+                    {tinyUrlResponseError && <Form.Group as={Col} md="8" className={styles.tinyUrlErrorResponse}>
+                      Url has already been claimed. Please try a different custom url.
+                    </Form.Group>}
 
                     <Form.Group as={Col} md="8">
                     </Form.Group>

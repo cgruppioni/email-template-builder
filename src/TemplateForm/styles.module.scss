@@ -15,19 +15,12 @@
 }
 
 .button {
-  margin-top: 20px;
-}
-
-.exampleUrl {
-  margin-bottom: 40px;
-  font-size: 1rem;
-  font-weight: 500;
+  margin-top: 15px;
 }
 
 .customUrl {
   @extend .formGroup;
-
-  margin-top: 30px;
+  width: 100%
 }
 
 .tinyUrlResponse {
@@ -36,3 +29,7 @@
   font-size: 1.25rem;
 }
 
+.tinyUrlErrorResponse {
+  color: red;
+  font-size: 12px;
+}
