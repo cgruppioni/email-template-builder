@@ -35,6 +35,7 @@ export const TemplateForm = () => {
                     setTinyUrlResponseError(values.alias)
                   }
                   else {
+                    setTinyUrlResponseError('')
                     setTinyUrlResponse(<a href={`${res}`} rel="noopener noreferrer" target="_blank">{res}</a>)
                   }
                 })
