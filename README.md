@@ -1,3 +1,7 @@
+Email Template Builder allows a user to create a TinyUrl link with an alias for an email campaign.
+
+___
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

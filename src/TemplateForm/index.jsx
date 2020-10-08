@@ -20,6 +20,7 @@ export const TemplateForm = () => {
     return (
         <>
           <h5 className={styles.description}>Create a shareable email campaign</h5>
+          <a className={styles.instructions} href="https://tinyurl.com/emailtemplatedirections" rel="noopener noreferrer" target="_blank">Instructions</a>
           <p className={styles.tinyUrlResponse}>{tinyUrlResponse}</p>
           <Formik
               validationSchema={schema}
@@ -53,7 +54,6 @@ export const TemplateForm = () => {
               {({
                   handleSubmit,
                   handleChange,
-                  isValid,
                   errors,
                   values,
               }) => (
