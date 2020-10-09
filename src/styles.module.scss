@@ -1,3 +1,28 @@
+.app {
+  text-align: center;
+}
+
+.appLogo {
+  height: 8vmin;
+  pointer-events: none;
+}
+
+.appHeader {
+  background-color: #61dafb;
+  min-height: 11vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+main {
+  margin: 50px;
+}
+
+
 .form {
   align-items: center;
   display: flex;
