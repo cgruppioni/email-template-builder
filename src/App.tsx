@@ -1,4 +1,4 @@
-import React, { useState }from 'react'
+import React, { FormEvent, useState }from 'react'
 import * as Yup from 'yup'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
@@ -15,7 +15,7 @@ const schema = Yup.object({
 
 const App = () => {
   const [tinyUrlResponse, setTinyUrlResponse] = useState('')
-  const [tinyUrlResponseError, setTinyUrlResponseError] = useState('')
+  const [tinyUrlResponseError, setTinyUrlResponseError] = useState(false)
 
   return (
     <div className={styles.app}>
@@ -35,12 +35,13 @@ const App = () => {
             const link = `mailTo:${values.mailTo}?cc=${values.cc}&bcc=${values.bcc}&subject=${subject}&body=${body}`
             const data = { 'url': link, 'alias': values.alias }
 
-            TinyURL.shortenWithAlias(data).then(function(res) {
+            TinyURL.shortenWithAlias(data).then(function(res: {} | null | undefined) {
               if (res === 'Error'){
-                setTinyUrlResponseError(values.alias)
+                setTinyUrlResponseError(true)
+                setTinyUrlResponse(values.alias)
               }
               else {
-                setTinyUrlResponseError('')
+                setTinyUrlResponseError(false)
                 setTinyUrlResponse(<a href={`${res}`} rel="noopener noreferrer" target="_blank">{res}</a>)
               }
             })
@@ -61,7 +62,7 @@ const App = () => {
               errors,
               values,
           }) => (
-              <Form noValidate onSubmit={handleSubmit} className={styles.form}>
+            <Form noValidate onSubmit={handleSubmit} className={styles.form}>
                 <Form.Group as={Col} md="8" controlId="validationFormikMailTo" className={styles.formGroup}>
                     <Form.Label className={styles.label}>To</Form.Label>
                     <Form.Control
@@ -108,7 +109,7 @@ const App = () => {
                         type="text"
                         placeholder=""
                         name="body"
-                        rows="5"
+                        // rows="5"
                         value={values.body}
                         onChange={handleChange}
                     />
@@ -125,7 +126,7 @@ const App = () => {
                 </Form.Group>
 
                 {tinyUrlResponseError && <Form.Group as={Col} md="8" className={styles.tinyUrlResponseError}>
-                  <a href={`https://tinyurl.com/${tinyUrlResponseError}`} rel="noopener noreferrer" target="_blank">{`https://tinyurl.com/${tinyUrlResponseError}`}</a> has already been claimed. Please try a different custom url.
+                  <a href={`https://tinyurl.com/${setTinyUrlResponse}`} rel="noopener noreferrer" target="_blank">{`https://tinyurl.com/${setTinyUrlResponse}`}</a> has already been claimed. Please try a different custom url.
                 </Form.Group>}
                 <Button type="submit" size="lg" className={styles.button}>Submit form</Button>
               </Form>
